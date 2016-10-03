@@ -31,22 +31,75 @@ $(function() {
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
+        it('All RSS Feeds url are defined and have a value', function(){
+            var allFeedsLength = allFeeds.length;
+
+            for(var i = 0; i < allFeedsLength; i++){
+                console.log(allFeeds[i].url);
+                expect(allFeeds[i].url).toBeDefined();
+                expect(allFeeds[i].url.length).not.toBe(0);
+            }
+        });
 
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+        it('All RSS Feeds names are defined and have a value', function(){
+            var allFeedsLength = allFeeds.length;
+
+            for(var i = 0; i < allFeedsLength; i++){
+                console.log(allFeeds[i].name);
+                expect(allFeeds[i].name).toBeDefined();
+                expect(allFeeds[i].name.length).not.toBe(0);
+            }
+        });
+
     });
+
+
 
 
     /* TODO: Write a new test suite named "The menu" */
 
-        /* TODO: Write a test that ensures the menu element is
+    describe('The menu', function(){
+
+        beforeEach(function(){
+
+            jasmine.addMatchers({
+                hasMenuClass: function(util, customEqualityTesters){
+                    console.log(util)
+                    console.log(customEqualityTesters)
+                  return {
+                    compare: function(actual, expected){
+                        passed = actual.hasClass(expected) == true
+                        return{
+                            pass: passed,
+                            message: 'Expected' + actual + (passed ? '' : " hasn't") + ' Class ' + expected
+                        }
+                    }
+
+                  }
+                }
+            });
+        });
+
+         /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
+        it('Menu is hidden by default', function(){
+            console.log();
+
+            var bodyNode = $('body');
+
+            expect(bodyNode).hasMenuClass("menu-hidden");
+
+        })
+
+    });
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test
