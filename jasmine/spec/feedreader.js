@@ -35,7 +35,7 @@ $(function() {
             var allFeedsLength = allFeeds.length;
 
             for(var i = 0; i < allFeedsLength; i++){
-                console.log(allFeeds[i].url);
+                ////console.log(allFeeds[i].url);
                 expect(allFeeds[i].url).toBeDefined();
                 expect(allFeeds[i].url.length).not.toBe(0);
             }
@@ -50,7 +50,7 @@ $(function() {
             var allFeedsLength = allFeeds.length;
 
             for(var i = 0; i < allFeedsLength; i++){
-                console.log(allFeeds[i].name);
+                ////console.log(allFeeds[i].name);
                 expect(allFeeds[i].name).toBeDefined();
                 expect(allFeeds[i].name.length).not.toBe(0);
             }
@@ -64,13 +64,14 @@ $(function() {
     /* TODO: Write a new test suite named "The menu" */
 
     describe('The menu', function(){
-
+        var foo,
+            bodyNode = $('body');
         beforeEach(function(){
 
             jasmine.addMatchers({
-                hasMenuClass: function(util, customEqualityTesters){
-                    console.log(util)
-                    console.log(customEqualityTesters)
+                hasMenuClass: function(util){
+                    ////console.log(util)
+                    ////console.log(customEqualityTesters)
                   return {
                     compare: function(actual, expected){
                         passed = actual.hasClass(expected) == true
@@ -83,6 +84,15 @@ $(function() {
                   }
                 }
             });
+
+            foo = {
+                triggerClick: function(classNAme){
+                    $( classNAme ).on( "click", function() {
+                //alert( $( this ).text() );
+            });
+            $( classNAme).trigger( "click" );
+                }
+            }
         });
 
          /* TODO: Write a test that ensures the menu element is
@@ -91,15 +101,153 @@ $(function() {
          * hiding/showing of the menu element.
          */
         it('Menu is hidden by default', function(){
-            console.log();
 
-            var bodyNode = $('body');
+
+
 
             expect(bodyNode).hasMenuClass("menu-hidden");
 
         })
 
+        it('Menu show/hide when menu icon is clicked', function(){
+
+            // $( ".menu-icon-link" ).on( "click", function() {
+            //     //alert( $( this ).text() );
+            // });
+            // $( ".menu-icon-link").trigger( "click" );
+            foo.triggerClick(".menu-icon-link")
+            expect(bodyNode).not.hasMenuClass("menu-hidden");
+            foo.triggerClick(".menu-icon-link")
+            expect(bodyNode).hasMenuClass("menu-hidden");
+
+
+        })
+
     });
+
+    describe("Asynchronous specs", function() {
+  var value;
+
+
+  beforeEach(function(done) {
+    setTimeout(function() {
+      value = 0;
+      done();
+    }, 1);
+  });
+
+  it("should support async execution of test preparation and expectations", function(done) {
+    value++;
+    expect(value).toBeGreaterThan(0);
+    done();
+  });
+
+    describe('Initial Entries', function(){
+        //console.log($(".feed").children().length)
+        beforeEach(function(done){
+
+            loadFeed(0, function(){
+
+
+                setTimeout(function(){
+                    console.log($(".feed").children().length)
+
+                    done()
+
+                }, 4)
+             //console.log($(".feed").children().length)
+            })
+        })
+
+
+        it('beggins and load', function(done){
+
+             //console.log($(".feed").children().length)
+             value++
+             var a = $(".feed").children().length
+             //console.log($(".feed").children().length)
+
+             //expect($(".feed").children().length).toBeNumber();
+             //expect(a).toBeDefined();
+             expect(a).toBeGreaterThan(1);
+             done()
+
+        })
+     })
+
+    })
+
+    describe('New Feed Selection', function(){
+        var entryPre = $(".entry");
+        var entryLinkPre = $("a.entry-link").attr("href")
+        var elementsAreTheSame;
+        var entryPost;
+        console.log(entryPre.length)
+        var entryLinkPost;
+        var entryPost2;
+        var entryLinkPost2;
+        console.log()
+        var linksAreTheSame;
+        beforeEach(function(done){
+
+            loadFeed(1, function(){
+                //console.log($(".entry"))
+                setTimeout(function(){
+                 entryPost =$(".entry");
+                if(entryPost.length > 0){
+
+                }
+                //linksAreTheSame = (entryLinkPre === entryLinkPost)
+                entryLinkPost = $("a.entry-link").attr("href")
+                //elementsAreTheSame = (entryPre === entryPost);
+                callOther(2)
+
+                },20)
+
+
+
+        })
+             function callOther(cual){
+            loadFeed(cual, function(){
+
+                setTimeout(function(){
+                entryPost2 =$(".entry");
+                entryLinkPost2 = $("a.entry-link").attr("href")
+                elementsAreTheSame = (entryPost2 == entryPost);
+                linksAreTheSame = (entryLinkPost === entryLinkPost2)
+                //console.log(entryPre === entryPost)
+                console.log(elementsAreTheSame)
+                console.log(entryPost[0])
+                //console.log(entryPre)
+                console.log(entryPost2[0])
+
+
+                //checkIfEveryEntryChange
+                done()
+                },80)
+
+
+            })
+        }
+        })
+
+        it('content change', function(done){
+
+
+            expect(elementsAreTheSame).toBe(false);
+            expect(linksAreTheSame).toBe(false)
+            console.log(elementsAreTheSame)
+            done()
+        })
+
+    })
+
+
+
+
+
+
+
 
          /* TODO: Write a test that ensures the menu changes
           * visibility when the menu icon is clicked. This test

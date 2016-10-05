@@ -5,7 +5,8 @@
  * use of. It also uses the Handlebars templating library and
  * jQuery.
  */
-
+ //console.log($(".feed").children().length)
+  console.log('a')
 // The names and URLs to all of the feeds we'd like available.
 var allFeeds = [
     {
@@ -29,7 +30,7 @@ var allFeeds = [
  */
 function init() {
     // Load the first feed we've defined (index of 0).
-    loadFeed(0);
+    //loadFeed(0);
 }
 
 /* This function performs everything necessary to load a
@@ -43,6 +44,7 @@ function init() {
  function loadFeed(id, cb) {
      var feedUrl = allFeeds[id].url,
          feedName = allFeeds[id].name;
+
 
      $.ajax({
        type: "POST",
@@ -80,6 +82,7 @@ function init() {
                  }
                },
        dataType: "json"
+
      });
  }
 
