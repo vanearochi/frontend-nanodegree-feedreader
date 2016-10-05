@@ -8,7 +8,7 @@
  //console.log($(".feed").children().length)
   console.log('a')
 // The names and URLs to all of the feeds we'd like available.
-var allFeeds = [
+//var allFeeds = [
     {
         name: 'Udacity Blog',
         url: 'http://blog.udacity.com/feed'
@@ -30,7 +30,7 @@ var allFeeds = [
  */
 function init() {
     // Load the first feed we've defined (index of 0).
-    //loadFeed(0);
+    loadFeed(0);
 }
 
 /* This function performs everything necessary to load a
