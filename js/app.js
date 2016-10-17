@@ -5,9 +5,10 @@
  * use of. It also uses the Handlebars templating library and
  * jQuery.
  */
-
+ //console.log($(".feed").children().length)
+  console.log('a')
 // The names and URLs to all of the feeds we'd like available.
-var allFeeds = [
+var allFseeds = [
     {
         name: 'Udacity Blog',
         url: 'http://blog.udacity.com/feed'
@@ -43,6 +44,7 @@ function init() {
  function loadFeed(id, cb) {
      var feedUrl = allFeeds[id].url,
          feedName = allFeeds[id].name;
+
 
      $.ajax({
        type: "POST",
@@ -80,6 +82,7 @@ function init() {
                  }
                },
        dataType: "json"
+
      });
  }
 
