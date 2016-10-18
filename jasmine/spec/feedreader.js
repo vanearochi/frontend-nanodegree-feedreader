@@ -107,21 +107,17 @@ $(function() {
               * done is inside the callback function since loadFeed is async and
               * we need to ensure that it has finished
             */
-            loadFeed(0, function(){
-
-                done();
-            });
+            loadFeed(0, done);
         });
 
         /** Spec ensures that div.feed has entries
           * Checks if div.feed has children which shows that entries has been added.
           * expect checks if children is greater than 1 that at at least one entry has been added
         */
-        it('div.feed has entries', function(done){
+        it('div.feed has entries', function(){
 
-             var a = $(".feed").children().length;
-             expect(a).toBeGreaterThan(1);
-             done();
+             var entryLinkArrayLength = $('.feed .entry-link').length;
+             expect(entryLinkArrayLength).toBeGreaterThan(0);
 
         });
      });
@@ -130,12 +126,8 @@ $(function() {
     describe('New Feed Selection', function(){
 
 
-        var elementContentIsTheSame = false,
-            entryPost,
-            entryLinkPost,
-            entryPost2,
-            entryLinkPost2;
-
+        var entryPost,
+            entryPost2;
 
         beforeEach(function(done){
 
@@ -145,8 +137,6 @@ $(function() {
             loadFeed(1, function(){
 
                 entryPost =$(".entry");
-                entryLinkPost = $("a.entry-link");
-                var trial = $("a.entry-link");
                 callAgain(2);
             });
 
@@ -157,16 +147,7 @@ $(function() {
             function callAgain(feedNo){
 
                 loadFeed(feedNo, function(){
-
                     entryPost2 =$(".entry");
-                    entryLinkPost2 = $("a.entry-link");
-
-                    for(var i = 0; i < 10; i++){
-                        if(entryPost[i]===entryPost2[i] && entryLinkPost[i]===entryLinkPost2[i]){
-
-                            elementContentIsTheSame = true;
-                        }
-                    }
                     done();
                 });
             }
@@ -175,9 +156,15 @@ $(function() {
         /** Spec ensures that the content has change when there is a new feed selection
         */
         it('Content changes after a new feed selection', function(done){
+              //console.log(e)
 
-              expect(elementContentIsTheSame).toBe(false);
-              done();
+            for(var i = 0; i < 10; i++){
+              var entry1 = entryPost[i].innerHTML;
+              var entry2 = entryPost2[i].innerHTML;
+              expect(entry1).not.toBe(entry2);
+
+            }
+            done();
         });
 
     });
