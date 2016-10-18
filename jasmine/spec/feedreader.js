@@ -45,7 +45,7 @@ $(function() {
             bodyNode = $('body');
 
 
-            beforeEach(function(){
+            beforeAll(function(){
 
                 /** Custom matcher checks if an element has class*/
                 jasmine.addMatchers({
@@ -116,7 +116,7 @@ $(function() {
         */
         it('div.feed has entries', function(){
 
-             var entryLinkArrayLength = $('.feed .entry-link').length;
+             var entryLinkArrayLength = $('.feed .entry').length;
              expect(entryLinkArrayLength).toBeGreaterThan(0);
 
         });
