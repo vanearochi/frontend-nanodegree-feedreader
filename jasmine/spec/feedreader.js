@@ -57,14 +57,14 @@ $(function() {
                              * @param{String} expected - The Class Name.
                              */
                             compare: function(actual, expected){
-                                passed = actual.hasClass(expected) == true
+                                passed = actual.hasClass(expected) === true;
                                 return{
                                     pass: passed,
                                     message: 'Expected Node:' + actual[0].localName + (passed ? ' not to have' : " to have") + ' Class:' + expected
-                                }
+                                };
                             }
 
-                        }
+                        };
                     }
                 });
 
@@ -77,7 +77,7 @@ $(function() {
                     $( className ).on( "click", function(){});
                     $( className).trigger( "click" );
                 }
-            }
+            };
         });
 
          /** Spec ensures menu is hidden by default
@@ -86,16 +86,16 @@ $(function() {
          */
         it('Menu is hidden by default', function(){
             expect(bodyNode).hasMenuClass("menu-hidden");
-        })
+        });
 
         it('Menu is shown when menu icon is clicked', function(){
             eventSimulation.triggerClick(".menu-icon-link");
             expect(bodyNode).not.hasMenuClass("menu-hidden");
-        })
+        });
         it('Menu is hidden when menu icon is clicked', function(){
             eventSimulation.triggerClick(".menu-icon-link");
             expect(bodyNode).hasMenuClass("menu-hidden");
-        })
+        });
     });
 
     /** Initial Entries suite*/
@@ -109,9 +109,9 @@ $(function() {
             */
             loadFeed(0, function(){
 
-                done()
-            })
-        })
+                done();
+            });
+        });
 
         /** Spec ensures that div.feed has entries
           * Checks if div.feed has children which shows that entries has been added.
@@ -121,10 +121,10 @@ $(function() {
 
              var a = $(".feed").children().length;
              expect(a).toBeGreaterThan(1);
-             done()
+             done();
 
-        })
-     })
+        });
+     });
 
     /** New Feed Selection*/
     describe('New Feed Selection', function(){
@@ -146,7 +146,7 @@ $(function() {
 
                 entryPost =$(".entry");
                 entryLinkPost = $("a.entry-link");
-                var trial = $("a.entry-link")
+                var trial = $("a.entry-link");
                 callAgain(2);
             });
 
@@ -177,9 +177,9 @@ $(function() {
         it('Content changes after a new feed selection', function(done){
 
               expect(elementContentIsTheSame).toBe(false);
-              done()
-        })
+              done();
+        });
 
-    })
+    });
 
 }());
